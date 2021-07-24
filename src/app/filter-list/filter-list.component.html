@@ -1,0 +1,32 @@
+<div class="filter-panel">
+    <h2 class="filter-main-header">Filters</h2>
+    <div>
+        <div class="filter-header">Launch Year
+            <hr class="hr-75">
+        </div>
+        <ul class="filters">
+            <li class="filter-item" [class.selected]="year === selectedYear" (click)="yearClick(year)" *ngFor="let year of filters.years; let i=index;">
+                {{year}}
+            </li>
+        </ul>
+        <div class="filter-header">Successful Launch
+            <hr class="hr-75">
+        </div>
+        <ul class="filters">
+            <li class="filter-item" [class.selected]="launchFilter === selectedlaunchFilter" (click)="launchFilterClick(launchFilter)" *ngFor="let launchFilter of filters.launch; let i=index;">
+                {{launchFilter | titlecase}}
+            </li>
+        </ul>
+        <div class="filter-header">Successful Landing
+            <hr class="hr-75">
+        </div>
+        <ul class="filters">
+            <li class="filter-item" [class.selected]="landingFilter === selectedLandingFilter" (click)="landingFilterClick(landingFilter)" *ngFor="let landingFilter of filters.landing; let i=index;">
+                {{landingFilter | titlecase}}
+            </li>
+        </ul>
+    </div>
+    <div class="clear-filter-div">
+        <button class="clear-filter" (click)="clearFilters()">Clear Filters</button>
+    </div>
+</div>

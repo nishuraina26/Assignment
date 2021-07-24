@@ -1,10 +1,11 @@
-import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HttpHandler } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable, of } from 'rxjs';
-import { AppComponent } from './app.component';
-import { LaunchService } from './service/launch.service';
+import { LaunchService } from '../service/launch.service';
+
+import { FilterListComponent } from './filter-list.component';
 
 @Injectable()
 class MockLaunchService {
@@ -17,12 +18,18 @@ class MockLaunchService {
   public getLaunchPrograms(): Observable<any> {
     return of(this.launchPrograms)
   }
+  public getFilteredLaunchPrograms(): Observable<any> {
+    return of(this.launchPrograms)
+  }
 
 }
-describe('AppComponent', () => {
-  let component: AppComponent;
+
+describe('FilterListComponent', () => {
+  let component: FilterListComponent;
+  let fixture: ComponentFixture<FilterListComponent>;
   let mocService: MockLaunchService;
   let launchService: LaunchService;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -30,26 +37,58 @@ describe('AppComponent', () => {
       ],
       providers: [LaunchService, MockLaunchService, HttpClient, HttpHandler,
         { provide: LaunchService, useClass: MockLaunchService }],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-    const fixture = TestBed.createComponent(AppComponent);
+      declarations: [ FilterListComponent ],
+    })
+    .compileComponents();
+    const fixture = TestBed.createComponent(FilterListComponent);
     component = fixture.componentInstance;
     launchService = TestBed.inject(LaunchService)
     mocService = TestBed.inject(MockLaunchService);
     fixture.detectChanges();
   }));
 
-  it('should create the app', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(FilterListComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load data', () => {
-    component.getLaunchPrograms();
+  it('should click year', () => {
+    let year=2010
+    component.yearClick(year);
     var data = mocService.launchPrograms;
-    let spy = spyOn(launchService, 'getLaunchPrograms').and.returnValue(of(data));
-    expect(component.getLaunchPrograms).toBeTruthy();
+    let spy = spyOn(launchService, 'getFilteredLaunchPrograms').and.returnValue(of(data));
+    expect(component.getFilteredPrograms).toBeTruthy();
+
   });
 
+  it('should click launch filter', () => {
+    let launch=true
+    component.launchFilterClick(launch);
+    var data = mocService.launchPrograms;
+    let spy = spyOn(launchService, 'getFilteredLaunchPrograms').and.returnValue(of(data));
+    expect(component.getFilteredPrograms).toBeTruthy();
+
+  });
+
+  it('should click landing filter', () => {
+    let launch=true
+    component.landingFilterClick(launch);
+    var data = mocService.launchPrograms;
+    let spy = spyOn(launchService, 'getFilteredLaunchPrograms').and.returnValue(of(data));
+    expect(component.getFilteredPrograms).toBeTruthy();
+
+  });
+
+  it('should click clear filter', () => {
+    component.clearFilters();
+    var data = mocService.launchPrograms;
+    let spy = spyOn(launchService, 'getLaunchPrograms').and.returnValue(of(data));
+    expect(component.getFilteredPrograms).toBeTruthy();
+
+  });
 });

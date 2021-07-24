@@ -1,0 +1,37 @@
+ul.filters {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0 10px 0;
+    justify-content: space-evenly;
+    list-style-type: none;
+}
+
+li.filter-item {
+    width: 35%;
+    text-align: center;
+    background-color: lightgreen;
+    border-radius: 6px;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.filter-panel {
+    background-color: white;
+    border-radius: 10px;
+    padding: 8px 0 8px 8px;
+}
+
+.filter-item.selected {
+    background-color: rgb(110, 165, 22);
+}
+
+.filter-header {
+    text-align: center;
+    margin: 10px 0 10px 0;
+    font-weight: bold;
+}
+
+.hr-75 {
+    margin: 0 10% 0 10%;
+}

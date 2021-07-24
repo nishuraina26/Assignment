@@ -1,0 +1,39 @@
+<ul class="cards" *ngIf="programs.length">
+
+    <li *ngFor="let program of programs" class="cards__item">
+        <div class="card">
+            <div class="card__image">
+                <img alt="{{program.mission_name}}" src="{{program.links.mission_patch_small}}" />
+            </div>
+            <div class="card__content">
+                <div class="card__title">
+                    {{ program.mission_name }} #{{ program.flight_number }}
+                </div>
+                <div class="card__text">
+                    <div>
+                        <div class="mission-detail strong">Mission Ids: </div>
+                        <ul class="mission-list">
+                            <li *ngFor="let missionId of program.mission_id">
+                                {{missionId}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="center-items">
+                        <div class="mission-detail strong">Launch Year: </div>
+                        <div class="mission-detail detail-value">
+                            {{ program.launch_year }}</div>
+                    </div>
+                    <div class="center-items">
+                        <div class="mission-detail strong">Successful Launch: </div>
+                        <div class="mission-detail detail-value">
+                            {{ program.launch_success ? "true" : "false"}}</div>
+                    </div>
+                    <div class="center-items">
+                        <div class="mission-detail strong">Successful Landing: </div>
+                        <div class="mission-detail detail-value">{{ program.land_success ? "true" : "false"}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
